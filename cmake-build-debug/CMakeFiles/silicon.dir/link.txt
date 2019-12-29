@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/silicon.dir/main.cpp.o CMakeFiles/silicon.dir/Server.cpp.o CMakeFiles/silicon.dir/SiliconException.cpp.o  -o silicon 

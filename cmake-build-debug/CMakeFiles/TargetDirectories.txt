@@ -1,0 +1,3 @@
+/home/anvar/Projects/silicon/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/anvar/Projects/silicon/cmake-build-debug/CMakeFiles/silicon.dir
+/home/anvar/Projects/silicon/cmake-build-debug/CMakeFiles/edit_cache.dir

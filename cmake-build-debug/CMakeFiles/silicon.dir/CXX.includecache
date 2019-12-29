@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/anvar/Projects/silicon/ExceptionCodes.h
+
+/home/anvar/Projects/silicon/Server.cpp
+strings.h
+-
+cerrno
+-
+unistd.h
+-
+Server.h
+/home/anvar/Projects/silicon/Server.h
+
+/home/anvar/Projects/silicon/Server.h
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+SiliconException.h
+/home/anvar/Projects/silicon/SiliconException.h
+ExceptionCodes.h
+/home/anvar/Projects/silicon/ExceptionCodes.h
+
+/home/anvar/Projects/silicon/SiliconException.h
+exception
+-
+stdint-gcc.h
+-
+
+/home/anvar/Projects/silicon/main.cpp
+iostream
+-
+Server.h
+/home/anvar/Projects/silicon/Server.h
+
