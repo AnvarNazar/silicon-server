@@ -5,10 +5,11 @@
 #include <strings.h>
 #include <cerrno>
 #include <unistd.h>
+#include <cstring>
 
 #include "Server.h"
 
-namespace sc {
+namespace si {
 
     Server::Server(int portNo, int64_t bufferSize) : _port_no(portNo = 6868), _buffer_size(bufferSize = 1024 * 24) {
         _server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -26,7 +27,7 @@ namespace sc {
         buffer = new char[_buffer_size];
     }
 
-    void Server::listen(void (*process_data)(char *)) {
+    void Server::listen() {
         if (::listen(_server_socket, 5) < 0) {
             if (errno == EADDRINUSE) {
                 throw SiliconException("port is already in use", EXCEPTION_PORT_NO_IN_USE);
@@ -35,17 +36,21 @@ namespace sc {
             }
         }
         _client_address_length = sizeof(_client_address);
-        _client_socket = accept(_server_socket, reinterpret_cast<sockaddr *>(&_client_address),
-                                &_client_address_length);
-        if (_client_socket < 0) {
-            throw SiliconException("accept connection from socket failed", EXCEPTION_SOCKET_ACCEPT_FAILED);
-        }
 
         int socket_read = 0;
+        int socket_write = 0;
         do {
+            _client_socket = accept(_server_socket, reinterpret_cast<sockaddr *>(&_client_address),
+                                    &_client_address_length);
+            if (_client_socket < 0) {
+                throw SiliconException("accept connection from socket failed", EXCEPTION_SOCKET_ACCEPT_FAILED);
+            }
+
             socket_read = read(_client_socket, buffer, _buffer_size);
-            process_data(buffer);
-        } while (socket_read == 0);
+            char *response = process_Request();
+            socket_write = write(_client_socket, response, strlen(response));
+            bzero(buffer, _buffer_size);
+        } while (socket_read >= 0 && socket_write >= 0);
 
         if (socket_read < 0) {
             throw SiliconException("failed read from client", EXCEPTION_SOCKET_READ_FAILED);
@@ -53,6 +58,7 @@ namespace sc {
     }
 
     Server::~Server() {
+        close(_server_socket);
         delete[] buffer;
     }
 }

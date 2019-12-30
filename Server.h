@@ -12,10 +12,11 @@
 #include "SiliconException.h"
 #include "ExceptionCodes.h"
 
-namespace sc {
+namespace si {
     class Server {
     public:
         Server(int portNo, int64_t bufferSize);
+
         virtual ~Server();
 
     private:
@@ -24,13 +25,16 @@ namespace sc {
 
         sockaddr_in _client_address{};
         int _server_socket;
-        int _client_socket{};
+        int _client_socket;
         int _port_no;
 
         int64_t _buffer_size;
+    protected:
         char *buffer;
     public:
-        void listen(void (*process_data)(char *buffer));
+        void listen();
+
+        virtual char *process_Request() = 0;
     };
 }
 

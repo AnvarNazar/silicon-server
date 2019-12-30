@@ -4,14 +4,14 @@
 
 #include "SiliconException.h"
 
-sc::SiliconException::SiliconException(const char *message, const int code) : _message(message), _code(code) {
+si::SiliconException::SiliconException(const char *message, const int code) : _message(message), _code(code) {
 
 }
 
-const char *sc::SiliconException::what() const noexcept {
+const char *si::SiliconException::what() const noexcept {
     return _message;
 }
 
-int sc::SiliconException::code() const {
+int si::SiliconException::code() const {
     return _code;
 }

@@ -8,7 +8,7 @@
 #include <exception>
 #include <stdint-gcc.h>
 
-namespace sc {
+namespace si {
     class SiliconException: std::exception {
     private:
         const char *_message;
